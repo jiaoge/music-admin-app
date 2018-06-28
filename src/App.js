@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+
+import Loadable from 'react-loadable';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './Layout';
-import Loadable from 'react-loadable';
 
 // 自定义 loading
 const Loading = () => <div>Loading...</div>;
-
-// 布局包装器
-const Wraper = Page => {
-  return () => {
-    return <Layout body={<Page />} />;
-  };
-};
 
 //歌单管理页
 const PlayList = Loadable({
@@ -25,6 +20,13 @@ const Songs = Loadable({
   loader: () => import('./page/Songs'),
   loading: Loading
 });
+
+// 布局包装器
+const Wraper = Page => {
+  return () => {
+    return <Layout body={<Page />} />;
+  };
+};
 
 class App extends Component {
   render() {
