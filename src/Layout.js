@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-
 import { withRouter } from 'react-router-dom';
-
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 
 class LayoutComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      key: '/'
-    };
-  }
+  state = {
+    key: '/' // 设置默认菜单的 Key
+  };
   componentWillMount() {
+    // 从当前的网页URL中得到path，并更新默认菜单的Key
     this.setState({ key: this.props.location.pathname });
   }
-
-  handlerMenu = item => {
+  /**
+   * 执行菜单的选择事件
+   */
+  handlerOnSelectMenu = item => {
+    // 提交页面内容刷新请求
     this.props.history.push(item.key);
   };
   render() {
@@ -44,7 +43,7 @@ class LayoutComponent extends Component {
           <Menu
             theme="dark"
             mode="inline"
-            onSelect={this.handlerMenu}
+            onSelect={this.handlerOnSelectMenu}
             defaultSelectedKeys={[this.state.key]}
           >
             <Menu.Item key="/">
@@ -89,12 +88,12 @@ class LayoutComponent extends Component {
               textAlign: 'center'
             }}
           >
-            Ant Design ©2016 Created by Ant UED
+            ©2018 Created by B.Match
           </Footer>
         </Layout>
       </Layout>
     );
   }
 }
-
+// 使用 router的包装器，用来支持页面局部刷新
 export default withRouter(LayoutComponent);
