@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-class PlayList extends Component {
+/**
+ * 歌曲管理页
+ */
+class Songs extends Component {
   componentDidMount() {
     document.title = '歌曲管理';
   }
@@ -10,4 +13,4 @@ class PlayList extends Component {
   }
 }
 
-export default PlayList;
+export default Songs;
