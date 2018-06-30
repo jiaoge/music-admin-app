@@ -17,6 +17,20 @@ class PlayList extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+
+        fetch('/api/playlist/add', {
+          body: JSON.stringify(values),
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          }
+        })
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(myJson) {
+            console.log(myJson);
+          });
       }
     });
   };
