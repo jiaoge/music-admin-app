@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -28,8 +28,15 @@ class PlayList extends Component {
           .then(function(response) {
             return response.json();
           })
-          .then(function(myJson) {
-            console.log(myJson);
+          .then(data => {
+            console.log(data);
+            Modal.info({
+              title: '成功',
+              content: <span>提交歌单成功！</span>,
+              onOk: () => {
+                this.props.form.resetFields();
+              }
+            });
           });
       }
     });
