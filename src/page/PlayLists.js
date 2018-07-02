@@ -97,7 +97,7 @@ class PlayLists extends Component {
                 onClick={() => {
                   this.props.dispatch(
                     play(
-                      'http://qgt-document.oss-cn-beijing.aliyuncs.com/video/Adele%20-%20Hello.mp3'
+                      'http://qgt-document.oss-cn-beijing.aliyuncs.com/Hello.mp3'
                     )
                   );
                 }}
