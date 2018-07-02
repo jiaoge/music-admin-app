@@ -45,6 +45,7 @@ class PlayLists extends Component {
         columns={columns}
         dataSource={this.state.data}
         pagination={false}
+        rowKey={record => record.id}
       />
     );
   }
