@@ -52,7 +52,7 @@ class LayoutComponent extends Component {
             <ReactPlayer
               height={30}
               width="100%"
-              url={this.props.playUrl.src}
+              url={this.props.playUrl}
               playing
               controls
             />{' '}
@@ -75,7 +75,7 @@ class LayoutComponent extends Component {
 
 const mapStateToProps = state => {
   return {
-    playUrl: state || {}
+    playUrl: state.src
   };
 };
 
