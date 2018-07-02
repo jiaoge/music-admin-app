@@ -3,6 +3,8 @@ import { Table } from 'antd';
 
 import MusciSelect from '../component/MusicSelect';
 import Remote from '../Remote';
+import { connect } from 'react-redux';
+import { play } from '../actions';
 
 class PlayLists extends Component {
   state = {
@@ -89,6 +91,19 @@ class PlayLists extends Component {
               >
                 选择歌曲
               </a>
+              |
+              <a
+                href="javascript:;"
+                onClick={() => {
+                  this.props.dispatch(
+                    play(
+                      'http://qgt-document.oss-cn-beijing.aliyuncs.com/video/Adele%20-%20Hello.mp3'
+                    )
+                  );
+                }}
+              >
+                播放歌曲
+              </a>
             </span>
           );
         }
@@ -114,4 +129,4 @@ class PlayLists extends Component {
   }
 }
 
-export default PlayLists;
+export default connect()(PlayLists);
