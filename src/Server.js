@@ -14,6 +14,21 @@ const playlistDatas = [
     desc: '测试歌单描述'
   }
 ];
+
+const musicDatas = [
+  {
+    id: 1,
+    title: '测试歌'
+  },
+  {
+    id: 2,
+    title: '测试歌2'
+  },
+  {
+    id: 3,
+    title: '测试歌3'
+  }
+];
 /**
  * 处理歌单添加
  */
@@ -26,10 +41,31 @@ app.post('/api/playlist/add', function(req, res) {
 });
 
 /**
+ * 处理歌单添加
+ */
+app.post('/api/playlist/update', function(req, res) {
+  const id = req.body.id;
+
+  playlistDatas.map(item => {
+    if (item.id === id) {
+      item.musicKeys = req.body.keys;
+    }
+  });
+  res.json({ success: 'success' });
+});
+
+/**
  * 处理歌单列表数据
  */
 app.get('/api/playlist/query', function(req, res) {
   res.json(playlistDatas);
+});
+
+/**
+ * 处理歌单列表数据
+ */
+app.get('/api/music/query', function(req, res) {
+  res.json(musicDatas);
 });
 
 app.listen(4000, function() {
