@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Modal, Upload, message, Icon } from 'antd';
-
 import Remote from '../Remote';
+import queryString from 'query-string';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -27,8 +27,25 @@ const props = {
  * 歌曲管理页
  */
 class Songs extends Component {
+  state = {
+    id: null
+  };
   componentDidMount() {
     document.title = '歌曲管理';
+    const id = queryString.parse(window.location.search).id;
+    if (!id) {
+      return;
+    }
+    this.setState({ id });
+    Remote(
+      '/api/music/query?ids=' + JSON.stringify([id]),
+      { method: 'GET' },
+      data => {
+        this.props.form.setFieldsValue({
+          title: data[0].title
+        });
+      }
+    );
   }
 
   handleSubmit = e => {
@@ -37,6 +54,7 @@ class Songs extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
         const body = {
+          id: this.state.id,
           title: values.title,
           url: values.file.file.response.filename
         };

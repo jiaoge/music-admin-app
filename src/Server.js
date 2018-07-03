@@ -21,17 +21,17 @@ const playlistDatas = [
 
 const musicDatas = [
   {
-    id: 35847388,
+    id: '35847388',
     title: 'Hello',
     url: 'http://music.163.com/song/media/outer/url?id=35847388.mp3'
   },
   {
-    id: 421423756,
+    id: '421423756',
     title: 'Nervous',
     url: 'http://music.163.com/song/media/outer/url?id=421423756.mp3'
   },
   {
-    id: 479408220,
+    id: '479408220',
     title: '凉凉',
     url: 'http://music.163.com/song/media/outer/url?id=479408220.mp3'
   }
@@ -94,9 +94,18 @@ app.post('/upload', upload.single('music'), function(req, res) {
 });
 
 app.post('/api/music/add', function(req, res) {
-  req.body.id = uuidv4();
-  req.body.url = 'uploads/' + req.body.url;
-  musicDatas.push(req.body);
+  if (!req.body.id) {
+    req.body.id = uuidv4();
+    req.body.url = 'uploads/' + req.body.url;
+    musicDatas.push(req.body);
+  } else {
+    musicDatas.map(mid => {
+      if (req.body.id === mid.id) {
+        mid.title = req.body.title;
+        mid.url = 'uploads/' + req.body.url;
+      }
+    });
+  }
 
   res.json(req.body);
 });

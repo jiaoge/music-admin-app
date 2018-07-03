@@ -21,9 +21,15 @@ const Songs = Loadable({
   loading: Loading
 });
 
-// 歌曲列表页
+// 歌单列表页
 const PlayLists = Loadable({
   loader: () => import('./page/PlayLists'),
+  loading: Loading
+});
+
+// 歌曲列表页
+const SongList = Loadable({
+  loader: () => import('./page/SongList'),
   loading: Loading
 });
 
@@ -42,6 +48,7 @@ class App extends Component {
           <Route exact path="/" component={Wraper(PlayList)} />
           <Route path="/playlists" component={Wraper(PlayLists)} />
           <Route path="/songs" component={Wraper(Songs)} />
+          <Route path="/songlist" component={Wraper(SongList)} />
         </Switch>
       </Router>
     );
