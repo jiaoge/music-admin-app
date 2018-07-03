@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
+var multer = require('multer');
+var upload = multer({ dest: 'public/uploads/' });
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 // 缓存歌单数据
 const playlistDatas = [
@@ -84,6 +87,18 @@ app.get('/api/music/query', function(req, res) {
   }
 
   res.json(musicDatas);
+});
+
+app.post('/upload', upload.single('music'), function(req, res) {
+  res.json(req.file);
+});
+
+app.post('/api/music/add', function(req, res) {
+  req.body.id = uuidv4();
+  req.body.url = 'uploads/' + req.body.url;
+  musicDatas.push(req.body);
+
+  res.json(req.body);
 });
 
 app.listen(4000, function() {
