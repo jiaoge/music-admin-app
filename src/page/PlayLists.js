@@ -46,7 +46,7 @@ class PlayLists extends Component {
   handlerSelectMusic = keys => {
     this.closeSelectMusic();
     Remote(
-      '/api/playlist/query',
+      '/api/playlist/update',
       {
         body: JSON.stringify({
           id: this.state.playListId,
