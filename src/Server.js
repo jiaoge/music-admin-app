@@ -21,17 +21,17 @@ const playlistDatas = [
 
 const musicDatas = [
   {
-    id: 35847388,
+    id: '35847388',
     title: 'Hello',
     url: 'http://music.163.com/song/media/outer/url?id=35847388.mp3'
   },
   {
-    id: 421423756,
+    id: '421423756',
     title: 'Nervous',
     url: 'http://music.163.com/song/media/outer/url?id=421423756.mp3'
   },
   {
-    id: 479408220,
+    id: '479408220',
     title: '凉凉',
     url: 'http://music.163.com/song/media/outer/url?id=479408220.mp3'
   }
