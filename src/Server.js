@@ -15,7 +15,7 @@ const playlistDatas = [
     name: '测试歌单1',
     cover: 'http://xx.com/xx.jpg',
     desc: '测试歌单描述',
-    musicKeys: [479408220]
+    musicKeys: ['479408220']
   }
 ];
 
