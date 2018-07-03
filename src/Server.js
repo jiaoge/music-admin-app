@@ -11,22 +11,26 @@ const playlistDatas = [
     id: 1,
     name: '测试歌单1',
     cover: 'http://xx.com/xx.jpg',
-    desc: '测试歌单描述'
+    desc: '测试歌单描述',
+    musicKeys: [479408220]
   }
 ];
 
 const musicDatas = [
   {
-    id: 1,
-    title: '测试歌'
+    id: 35847388,
+    title: 'Hello',
+    url: 'http://music.163.com/song/media/outer/url?id=35847388.mp3'
   },
   {
-    id: 2,
-    title: '测试歌2'
+    id: 421423756,
+    title: 'Nervous',
+    url: 'http://music.163.com/song/media/outer/url?id=421423756.mp3'
   },
   {
-    id: 3,
-    title: '测试歌3'
+    id: 479408220,
+    title: '凉凉',
+    url: 'http://music.163.com/song/media/outer/url?id=479408220.mp3'
   }
 ];
 /**
@@ -65,6 +69,20 @@ app.get('/api/playlist/query', function(req, res) {
  * 处理歌单列表数据
  */
 app.get('/api/music/query', function(req, res) {
+  if (req.query.ids) {
+    const ids = JSON.parse(req.query.ids);
+    const result = [];
+    ids.map(id => {
+      musicDatas.map(mid => {
+        if (id === mid.id) {
+          result.push(mid);
+        }
+      });
+    });
+    res.json(result);
+    return;
+  }
+
   res.json(musicDatas);
 });
 

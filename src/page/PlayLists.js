@@ -46,7 +46,7 @@ class PlayLists extends Component {
   handlerSelectMusic = keys => {
     this.closeSelectMusic();
     Remote(
-      '/api/playlist/query',
+      '/api/playlist/update',
       {
         body: JSON.stringify({
           id: this.state.playListId,
@@ -95,10 +95,17 @@ class PlayLists extends Component {
               <a
                 href="javascript:;"
                 onClick={() => {
-                  this.props.dispatch(
-                    play(
-                      'http://qgt-document.oss-cn-beijing.aliyuncs.com/Hello.mp3'
-                    )
+                  if (!record.musicKeys) {
+                    return;
+                  }
+                  Remote(
+                    '/api/music/query?ids=' + JSON.stringify(record.musicKeys),
+                    { method: 'GET' },
+                    data => {
+                      this.props.dispatch(
+                        play(data[0].url, data[0].title, data)
+                      );
+                    }
                   );
                 }}
               >

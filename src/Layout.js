@@ -3,7 +3,9 @@ import { withRouter } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Dropdown, Row, Col } from 'antd';
+import { switchPlay } from './actions';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 class LayoutComponent extends Component {
@@ -14,6 +16,57 @@ class LayoutComponent extends Component {
 
   handlerOnSelect = item => {
     this.props.history.push(item.key);
+  };
+
+  getPlayer = () => {
+    if (!this.props.playUrl) {
+      return null;
+    }
+
+    console.log(this.props.playLists);
+
+    const menu = (
+      <Menu>
+        {this.props.playLists.map(p => {
+          return (
+            <Menu.Item key={p.id}>
+              <a
+                href="javascript:;"
+                onClick={() => {
+                  this.props.dispatch(switchPlay(p.url, p.title));
+                }}
+              >
+                {p.title}
+              </a>
+            </Menu.Item>
+          );
+        })}
+      </Menu>
+    );
+
+    return (
+      <Row>
+        <Col span={6} style={{ textAlign: 'right' }}>
+          {this.props.musicTitle}
+        </Col>
+        <Col span={12}>
+          <ReactPlayer
+            height={30}
+            width="100%"
+            url={this.props.playUrl}
+            playing
+            controls
+          />
+        </Col>
+        <Col span={6}>
+          <Dropdown overlay={menu} trigger={['click']}>
+            <a className="ant-dropdown-link" href="#">
+              查看播放清单 <Icon type="down" />
+            </a>
+          </Dropdown>
+        </Col>
+      </Row>
+    );
   };
 
   render() {
@@ -49,13 +102,7 @@ class LayoutComponent extends Component {
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
           <Header style={{ background: '#fff', padding: 0 }}>
-            <ReactPlayer
-              height={30}
-              width="100%"
-              url={this.props.playUrl}
-              playing
-              controls
-            />{' '}
+            {this.getPlayer()}
           </Header>
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <div
@@ -75,7 +122,9 @@ class LayoutComponent extends Component {
 
 const mapStateToProps = state => {
   return {
-    playUrl: state.src
+    musicTitle: state.musicTitle,
+    playUrl: state.src,
+    playLists: state.playLists
   };
 };
 
