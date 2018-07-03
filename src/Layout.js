@@ -22,9 +22,6 @@ class LayoutComponent extends Component {
     if (!this.props.playUrl) {
       return null;
     }
-
-    console.log(this.props.playLists);
-
     const menu = (
       <Menu>
         {this.props.playLists.map(p => {
